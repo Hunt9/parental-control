@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0">
+
+        <Button
+            android:id="@+id/btnInbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2.5dp"
+            android:layout_weight="0.5"
+            android:background="@color/colorAccent2"
+            android:text="Inbox"
+            android:textColor="@android:color/white"></Button>
+
+        <Button
+            android:id="@+id/btnSentBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2.5dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2.5dp"
+
+            android:layout_weight="0.5"
+            android:background="@color/colorAccent2"
+            android:text="Sent Box"
+            android:textColor="@android:color/white">
+
+        </Button>
+
+        <Button
+            android:id="@+id/btnDraft"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2.5dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="0.5"
+            android:background="@color/colorAccent2"
+            android:text="Draft"
+            android:textColor="@android:color/white"></Button>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lvMsg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"></ListView>
+
+    <Button
+        android:id="@+id/back_button_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2.5dp"
+        android:background="@color/colorAccent2"
+        android:text="Back"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/sign_out2"
+        style="?android:textAppearanceSmall"
+        android:layout_width="157dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorAccent2"
+        android:text="@string/btn_sign_out"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_view_child" />
+
+    <!--<Button-->
+    <!--android:id="@+id/getmsg"-->
+    <!--style="?android:textAppearanceSmall"-->
+    <!--android:layout_width="157dp"-->
+    <!--android:layout_height="42dp"-->
+    <!--android:background="@color/colorAccent2"-->
+    <!--android:text="MESSAGE"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textStyle="bold"-->
+    <!--tools:layout_editor_absoluteX="127dp"-->
+    <!--tools:layout_editor_absoluteY="131dp" />-->
+
+    <!--<Button-->
+    <!--android:id="@+id/Bhistory"-->
+    <!--style="?android:textAppearanceSmall"-->
+    <!--android:layout_width="157dp"-->
+    <!--android:layout_height="42dp"-->
+    <!--android:background="@color/colorAccent2"-->
+    <!--android:text="HISTORY"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textStyle="bold"-->
+    <!--tools:layout_editor_absoluteX="127dp"-->
+    <!--tools:layout_editor_absoluteY="331dp" />-->
+
+    <!--<Button-->
+    <!--android:id="@+id/call_log"-->
+    <!--style="?android:textAppearanceSmall"-->
+    <!--android:layout_width="157dp"-->
+    <!--android:layout_height="42dp"-->
+    <!--android:background="@color/colorAccent2"-->
+    <!--android:text="CALL LOG"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textStyle="bold"-->
+    <!--tools:layout_editor_absoluteX="127dp"-->
+    <!--tools:layout_editor_absoluteY="431dp" />-->
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="24dp"
+        android:text="Parent's Activity"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/editText_Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--<Button-->
+    <!--android:id="@+id/applock"-->
+    <!--style="?android:textAppearanceSmall"-->
+    <!--android:layout_width="157dp"-->
+    <!--android:layout_height="42dp"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginEnd="8dp"-->
+    <!--android:background="@color/colorAccent2"-->
+    <!--android:text="TIMER LOCK"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textStyle="bold"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/sign_out2"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/button_view_child" />-->
+
+    <!--<Button-->
+    <!--android:id="@+id/btnRemoveUser"-->
+    <!--style="?android:textAppearanceSmall"-->
+    <!--android:layout_width="157dp"-->
+    <!--android:layout_height="44dp"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:layout_marginEnd="8dp"-->
+    <!--android:layout_marginBottom="8dp"-->
+    <!--android:background="@color/colorAccent"-->
+    <!--android:text="Delete Account"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textStyle="bold"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintHorizontal_bias="0.502"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--app:layout_constraintVertical_bias="0.755" />-->
+
+    <Button
+        android:id="@+id/button_view_child"
+        style="?android:textAppearanceSmall"
+        android:layout_width="157dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorAccent2"
+        android:text="@string/btn_viewChild"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/sign_out2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <!--<TextView-->
+    <!--android:id="@+id/current_parent_email"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:layout_marginEnd="8dp"-->
+    <!--android:layout_marginBottom="8dp"-->
+    <!--android:text="TextView"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintHorizontal_bias="0.025"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--app:layout_constraintVertical_bias="0.983" />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

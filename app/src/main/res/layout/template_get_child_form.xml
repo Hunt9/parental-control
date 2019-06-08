@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="1dp"
+            android:padding="5dp">
+
+            <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
+
+               <TextView
+                   android:id="@+id/textView_childName"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="Child Name"
+                   android:layout_marginLeft="5dp"
+                   android:layout_marginTop="8dp"
+                   android:textAlignment="textStart"
+                   android:textSize="16sp"
+                   android:textStyle="bold"
+                   android:textColor="@android:color/black"/>
+               <TextView
+                   android:id="@+id/textView_childEmail"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="Child Email"
+                   android:layout_marginLeft="5dp"
+                   android:layout_marginTop="8dp"
+                   android:textAlignment="textStart"
+                   android:textSize="16sp"
+                   android:textStyle="bold"
+                   android:textColor="@android:color/black"/>
+               <TextView
+                   android:id="@+id/textView_childAge"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="Child Age"
+                   android:layout_marginLeft="5dp"
+                   android:layout_marginTop="8dp"
+                   android:textAlignment="textStart"
+                   android:textSize="16sp"
+                   android:textStyle="bold"
+                   android:textColor="@android:color/black"/>
+               <TextView
+                   android:id="@+id/textView_childPhone"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="Child Phone"
+                   android:layout_marginLeft="5dp"
+                   android:layout_marginTop="8dp"
+                   android:textAlignment="textStart"
+                   android:textSize="16sp"
+                   android:textStyle="bold"
+                   android:textColor="@android:color/black"/>
+
+           </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swipeitems>
+    <item
+        description="@string/swipe_item5"
+        title="Wifi Only"
+        value="1" />
+    <item
+        description="@string/swipe_item6"
+        title="Full ( Needs Root )"
+        value="2" />
+</swipeitems>

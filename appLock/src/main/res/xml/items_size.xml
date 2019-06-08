@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swipeitems>
+    <!--<item-->
+    <!--value="size_kids"-->
+    <!--title="Kids' size"-->
+    <!--description="For the small appetite. Can be shared by four toddlers." />-->
+    <item
+        description="@string/swipe_item1"
+        title="30 Mins."
+        value="30_hour" />
+    <item
+        description="@string/swipe_item2"
+        title="1 Hour"
+        value="1_hour" />
+    <item
+        description="@string/swipe_item3"
+        title="2 Hours"
+        value="2_hours" />
+    <item
+        description="@string/swipe_item4"
+        title="3 Hours"
+        value="3_hours" />
+</swipeitems>
