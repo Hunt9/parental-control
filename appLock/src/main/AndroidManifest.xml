@@ -59,8 +59,7 @@
 
         <service
             android:name=".Timer_Service"
-            android:process=":Timer_Service"
-            android:stopWithTask="false" />
+            android:process=":Timer_Service" />
 
         <receiver
             android:enabled="true"
@@ -71,9 +70,9 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <!-- <service -->
-        <!-- android:name=".ReviverService" -->
-        <!-- android:process=":ReviverService" -->
-        <!-- android:stopWithTask="false" /> -->
+         <!--<service -->
+         <!--android:name=".ReviverService" -->
+         <!--android:process=":ReviverService" -->
+         <!--android:stopWithTask="false" /> -->
     </application>
 </manifest>

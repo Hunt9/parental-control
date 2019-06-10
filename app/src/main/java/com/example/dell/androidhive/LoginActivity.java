@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -54,6 +55,10 @@ public class LoginActivity extends AppCompatActivity {
             Manifest.permission.CALL_PHONE
     };
 
+    private FirebaseDatabase database1;
+    private DatabaseReference myRef;
+    private ArrayList<User> userList = new ArrayList<>();
+
     private int PERMISSION_REQUEST_CODE = 1;
 
     private EditText inputEmail, inputPassword;
@@ -63,11 +68,13 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference database;
     private String userID;
 
+    private boolean isregistered = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (checkAndRequestPermissions()){
+        if (checkAndRequestPermissions()) {
 
             Intent intent = new Intent(this, Main.class);
             startActivity(intent);
@@ -116,7 +123,8 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) { }
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
                     });
 
 /////////////////////////////////////////////////////////bhai yahan na yeh dekhna hay kay kon login hay chil ya parent agar parent hay tou yehi intent lagayga agar child hay tou childrenmain activity ka intent session jab lagayga
@@ -127,7 +135,32 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        Log.i("MESSAGE","LOGIN ACTIVITY");
+        database1 = FirebaseDatabase.getInstance();
+        myRef = database1.getReference("Users").child("Unregistered Users");
+        myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+
+                            final User users = dataSnapshot1.getValue(User.class);
+
+                            users.setPhone(dataSnapshot1.getKey());
+
+                            userList.add(users);
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                    }
+
+                });
+
+
+        Log.i("MESSAGE", "LOGIN ACTIVITY");
 
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
@@ -176,13 +209,10 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
-
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = inputEmail.getText().toString();
+                final String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
@@ -197,83 +227,174 @@ public class LoginActivity extends AppCompatActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                //authenticate user
-                auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+
+//                database1 = FirebaseDatabase.getInstance();
+//                myRef = database1.getReference("Users").child("Unregistered Users");
+
+                database = FirebaseDatabase.getInstance().getReference();
+                database.child("Users").child("Unregistered Users")
+                        .addValueEventListener(new ValueEventListener() {
                             @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-//                                progressBar.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
+                            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                     userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                    database = FirebaseDatabase.getInstance().getReference();
+                                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                                    database.child("Users")
-                                            .child("Parents")
-                                            .child(userID) // Create a reference to the child node directly
-                                            .addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                                    // This callback will fire even if the node doesn't exist, so now check for existence
-                                                    if (dataSnapshot.exists()) {
+                                    final User users = dataSnapshot1.getValue(User.class);
 
-                                                        /*```````````````````````````````` TESTING ``````````````````````````````````````*/
-                                                        FirebaseDatabase.getInstance().getReference("Users").child("Current Parent").child("ID").setValue(userID);
-                                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                                        startActivity(intent);
-                                                        finish();
+                                    users.setPhone(dataSnapshot1.getKey());
 
-                                                        /*``````````````````````````````````````````````````````````````````````````````*/
+//                            userList.add(users);
 
-                                                        System.out.println("The node exists.");
-                                                        System.out.println("Parent");
-                                                    } else {
+                                    if (users.getEmail().equals(email) && users.getPass().equals(password)) {
 
-                                                        FirebaseDatabase.getInstance().getReference("Users").child("Current Child").child("ID").setValue(userID);
+                                        auth = getInstance();
+                                        auth.createUserWithEmailAndPassword(email, password)
+                                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                                        Intent intent = new Intent(LoginActivity.this, ChildrenMainActivity.class);
-                                                        startActivity(intent);
-                                                        finish();
-                                                        System.out.println("The node does not exist.");
-                                                        System.out.println("Child");
+                                                        if (task.isSuccessful()) {
+
+                                                            User user = new User(users.getEmail(), users.getName(), users.getPhone(), users.getAge());
+
+
+                                                            //Add on Parents Node
+                                                            FirebaseDatabase.getInstance().getReferenceFromUrl("https://androidhive-124c5.firebaseio.com/Users/Parents/" + users.getParentID())
+                                                                    .child("Children").child(getInstance().getCurrentUser().getUid())
+                                                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        // Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
+                                                                    } else {
+                                                                        //display a failure message
+                                                                        // Toast.makeText(LoginActivity.this, "Not Successful", Toast.LENGTH_LONG).show();
+                                                                    }
+                                                                }
+                                                            });
+
+                                                            //Add in Children Node
+                                                            FirebaseDatabase.getInstance().getReference("Users")
+                                                                    .child("Children").child(getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        //Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
+
+                                                                    } else {
+                                                                        //display a failure message
+                                                                        //  Toast.makeText(LoginActivity.this, "Not Successful", Toast.LENGTH_LONG).show();
+                                                                    }
+                                                                }
+                                                            });
+
+                                                            FirebaseDatabase.getInstance().getReference("Users")
+                                                                    .child("Unregistered Users").child(users.getPhone()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
+
+                                                                    } else {
+                                                                        //display a failure message
+                                                                        Toast.makeText(LoginActivity.this, "Not Successful", Toast.LENGTH_LONG).show();
+                                                                    }
+                                                                }
+                                                            });
+//            ;
+                                                            startActivity(new Intent(LoginActivity.this, ChildrenMainActivity.class));
+                                                            finish();
+
+                                                        } else {
+                                                            Toast.makeText(LoginActivity.this, "Authentication failed."/* + task.getException()*/,
+                                                                    Toast.LENGTH_SHORT).show();
+                                                        }
                                                     }
-                                                }
+                                                });
 
-                                                @Override
-                                                public void onCancelled(DatabaseError databaseError) { }
-                                            });
 
-                                }
-
-                                else {
-                                    // there was an error
-                                    if (password.length() < 6) {
-                                        inputPassword.setError(getString(R.string.minimum_password));
                                     } else {
-                                        Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
-                                    }
-                                }
 
-                                progressBar.setVisibility(View.GONE);
+                                        isregistered = true;
+
+                                    }
+
+                                }
 
                             }
+
+                            @Override
+                            public void onCancelled(DatabaseError error) {
+                            }
+
                         });
+
+
+                //authenticate user
+
+                if (isregistered) {
+                    auth.signInWithEmailAndPassword(email, password)
+                            .
+
+                                    addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            // If sign in fails, display a message to the user. If sign in succeeds
+                                            // the auth state listener will be notified and logic to handle the
+                                            // signed in user can be handled in the listener.
+//                                progressBar.setVisibility(View.GONE);
+                                            if (task.isSuccessful()) {
+
+                                                userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                                database = FirebaseDatabase.getInstance().getReference();
+
+                                                database.child("Users")
+                                                        .child("Parents")
+                                                        .child(userID) // Create a reference to the child node directly
+                                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                                Intent intent = new Intent(LoginActivity.this, ChildrenMainActivity.class);
+                                                                startActivity(intent);
+                                                                finish();
+                                                                System.out.println("The node does not exist.");
+                                                                System.out.println("Child");
+
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(DatabaseError databaseError) {
+                                                            }
+                                                        });
+
+                                            } else {
+                                                // there was an error
+                                                if (password.length() < 6) {
+                                                    inputPassword.setError(getString(R.string.minimum_password));
+                                                } else {
+                                                    Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+
+                                            progressBar.setVisibility(View.GONE);
+
+                                        }
+                                    });
+                }
             }
         });
     }
 
-    public boolean checkAndRequestPermissions(){
+    public boolean checkAndRequestPermissions() {
         List<String> listpermissionsNeeded = new ArrayList<>();
-        for (String perm : appPermissions){
-            if (ContextCompat.checkSelfPermission(this, perm) != PackageManager.PERMISSION_GRANTED){
+        for (String perm : appPermissions) {
+            if (ContextCompat.checkSelfPermission(this, perm) != PackageManager.PERMISSION_GRANTED) {
                 listpermissionsNeeded.add(perm);
             }
         }
 
-        if (!listpermissionsNeeded.isEmpty()){
+        if (!listpermissionsNeeded.isEmpty()) {
             ActivityCompat.requestPermissions(this,
                     listpermissionsNeeded.toArray(new String[listpermissionsNeeded.size()]), PERMISSION_REQUEST_CODE);
             return false;

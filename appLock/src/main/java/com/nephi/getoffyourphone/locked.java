@@ -62,12 +62,12 @@ public class locked extends AppCompatActivity {
         Log.e("Lock_Screen", "ON");
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        v.cancel();
-        unregisterReceiver(broadcastReceiver1);
-        Log.e("Lock_Screen", "OFF");
-    }
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        v.cancel();
+//        unregisterReceiver(broadcastReceiver1);
+//        Log.e("Lock_Screen", "OFF");
+//    }
 
 }

@@ -19,7 +19,6 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
-        android:name=".App"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="Secure Child"
@@ -27,10 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:label">
-        <service
-            android:name=".MyService"
-            android:enabled="true"
-            android:exported="true"></service>
+
 
         <activity android:name=".ChildMsgLogActivity" />
         <activity android:name=".ChildBHistoryActivity" />

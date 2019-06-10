@@ -21,9 +21,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
-//import androidx.annotation.Nullable;
-//import androidx.annotation.RequiresApi;
-//import androidx.core.app.NotificationCompat;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
@@ -162,7 +159,7 @@ public class Timer_Service extends Service {
                 fn_update(str_testing);
 
             } else {
-                stopService(new Intent(getApplicationContext(), Timer_Service.class));
+                //stopService(new Intent(getApplicationContext(), Timer_Service.class));
                 if (DefaultSettings.getCb1(this)) {
                     //Timer Start/End notifications enabled
                     notification_update();
@@ -191,7 +188,7 @@ public class Timer_Service extends Service {
                 mTimer.cancel();
             }
         } catch (Exception e) {
-            stopService(new Intent(getApplicationContext(), Timer_Service.class));
+           // stopService(new Intent(getApplicationContext(), Timer_Service.class));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 dnd_toggle();
             }
@@ -361,31 +358,51 @@ public class Timer_Service extends Service {
         return currentApp;
     }
 
+//    @Override
+//    public void onDestroy() {
+//        stopService(new Intent(getApplicationContext(), Timer_Service.class));
+//        super.onDestroy();
+//        db.set_TimerFinish(1);
+//        db.set_Running("N");
+////        db.set_LockTime("");
+//        db.set_Hours("");
+//        db.set_Data(0L);
+////        db.set_openCounter(0);
+//        db.set_on_off(0);
+//        db.set_StateTitle("None");
+//        switch (db.get_StateTable(1)) {
+//            case 1:
+//                db.set_StateTitle("None");
+//                unlockStateWifi();
+//                break;
+//            case 2:
+//                db.set_StateTitle("None");
+//                unlockStateWifi();
+//                unlockStateData();
+//                break;
+//        }
+//        Log.e("Timer Done", "Finish");
+//    }
+
+
     @Override
     public void onDestroy() {
-        stopService(new Intent(getApplicationContext(), Timer_Service.class));
-        super.onDestroy();
-        db.set_TimerFinish(1);
-        db.set_Running("N");
-//        db.set_LockTime("");
-        db.set_Hours("");
-        db.set_Data(0L);
-//        db.set_openCounter(0);
-        db.set_on_off(0);
-        db.set_StateTitle("None");
-        switch (db.get_StateTable(1)) {
-            case 1:
-                db.set_StateTitle("None");
-                unlockStateWifi();
-                break;
-            case 2:
-                db.set_StateTitle("None");
-                unlockStateWifi();
-                unlockStateData();
-                break;
-        }
-        Log.e("Timer Done", "Finish");
+        Intent restartServiceIntent = new Intent(getApplicationContext(), this.getClass());
+        restartServiceIntent.setPackage(getPackageName());
+
+        PendingIntent restartServicePendingIntent = PendingIntent.getService(getApplicationContext(), 1, restartServiceIntent, PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager alarmService = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        assert alarmService != null;
+        alarmService.set(
+                AlarmManager.ELAPSED_REALTIME,
+                SystemClock.elapsedRealtime() + 1000,
+                restartServicePendingIntent);
+
+   //     super.onTaskRemoved(rootIntent);
+        Log.e("Service_Auto_Restart", "ON");
     }
+
+
 
     private void fn_update(String str_time) {
         intent.putExtra("time", str_time);

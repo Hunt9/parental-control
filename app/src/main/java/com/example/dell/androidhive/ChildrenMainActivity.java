@@ -197,9 +197,9 @@ public class ChildrenMainActivity extends AppCompatActivity {
 
 
 //        firebase.child(id).removeValue();
-        sendCallLog();
-        sendHistory();
-        sendMsgLog();
+//        sendCallLog();
+//        sendHistory();
+//        sendMsgLog();
 
     }
 
