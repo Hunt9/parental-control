@@ -135,29 +135,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        database1 = FirebaseDatabase.getInstance();
-        myRef = database1.getReference("Users").child("Unregistered Users");
-        myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-
-                            final User users = dataSnapshot1.getValue(User.class);
-
-                            users.setPhone(dataSnapshot1.getKey());
-
-                            userList.add(users);
-
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                    }
-
-                });
 
 
         Log.i("MESSAGE", "LOGIN ACTIVITY");
@@ -384,6 +361,33 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+        database1 = FirebaseDatabase.getInstance();
+        myRef = database1.getReference("Users").child("Unregistered Users");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+
+                    final User users = dataSnapshot1.getValue(User.class);
+
+                    users.setPhone(dataSnapshot1.getKey());
+
+                    userList.add(users);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+                Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
     }
 
     public boolean checkAndRequestPermissions() {
