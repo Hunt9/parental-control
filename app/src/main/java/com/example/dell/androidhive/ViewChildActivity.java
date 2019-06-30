@@ -192,7 +192,7 @@ public class ViewChildActivity extends AppCompatActivity {
                 pid = dataSnapshot.getValue(String.class);
 //                pid = id;
 
-                renderListView(pid);
+                renderListView(LoginActivity.id);
 
 //                System.out.println("``````````` ID +++```` "+id);
 //                System.out.println("``````````` PID 1 +++```` "+pid);
