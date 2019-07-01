@@ -124,7 +124,7 @@ public class Main extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainlock);
-       // startService(new Intent(this, Timer_Service.class));
+        startService(new Intent(this, Timer_Service.class));
         init();
         finish();
     }

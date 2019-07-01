@@ -18,7 +18,7 @@ public class BGService extends Service {
 
     @Override
     public void onCreate() {
-        Toast.makeText(this, "Service Created", Toast.LENGTH_LONG).show();
+       // startService(new Intent(this, Timer_Service.class));
 
     }
 
