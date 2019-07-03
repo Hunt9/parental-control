@@ -235,9 +235,19 @@ public class LoginActivity extends AppCompatActivity {
                                                             @Override
                                                             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                                                Intent intent = new Intent(LoginActivity.this, ChildrenMainActivity.class);
-                                                                startActivity(intent);
-                                                                finish();
+                                                                if(dataSnapshot.exists())
+                                                                {
+                                                                    id = auth.getUid();
+                                                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                                    startActivity(intent);
+                                                                    finish();
+
+                                                                }else {
+
+                                                                    Intent intent = new Intent(LoginActivity.this, ChildrenMainActivity.class);
+                                                                    startActivity(intent);
+                                                                    finish();
+                                                                }
                                                                 System.out.println("The node does not exist.");
                                                                 System.out.println("Child");
 
@@ -245,6 +255,8 @@ public class LoginActivity extends AppCompatActivity {
 
                                                             @Override
                                                             public void onCancelled(DatabaseError databaseError) {
+
+                                                                Toast.makeText(LoginActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                                                             }
                                                         });
 
