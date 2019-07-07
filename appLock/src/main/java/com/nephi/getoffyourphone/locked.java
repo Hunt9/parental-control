@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Vibrator;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.widget.TextView;
 
@@ -33,6 +35,7 @@ public class locked extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.locked_app);
+        startService(new Intent(this, Timer_Service.class));
         init();
     }
 

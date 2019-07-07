@@ -59,7 +59,9 @@
 
         <service
             android:name=".Timer_Service"
-            android:process=":Timer_Service" />
+            android:process=":Timer_Service"
+            android:enabled="true"
+            android:stopWithTask="false"/>
 
         <receiver
             android:enabled="true"

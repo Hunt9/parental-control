@@ -87,6 +87,8 @@ public class Timer_Service extends Service {
         //Wifi Manager
         wifiManager = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);
 
+        Toast.makeText(this, "Running...", Toast.LENGTH_SHORT).show();
+
         //DB
         db = new DB_Helper(this);
 
@@ -387,6 +389,10 @@ public class Timer_Service extends Service {
 
     @Override
     public void onDestroy() {
+        Toast.makeText(this, "Destroy", Toast.LENGTH_SHORT).show();
+       // startService(new Intent(this,Timer_Service.class));
+        //startService(new Intent(this, BGService.class));
+
         Intent restartServiceIntent = new Intent(getApplicationContext(), this.getClass());
         restartServiceIntent.setPackage(getPackageName());
 
@@ -401,6 +407,10 @@ public class Timer_Service extends Service {
    //     super.onTaskRemoved(rootIntent);
         Log.e("Service_Auto_Restart", "ON");
     }
+
+
+
+
 
 
 
@@ -422,7 +432,7 @@ public class Timer_Service extends Service {
 //                    strDate = simpleDateFormat.format(calendar.getTime());
                     strDate = System.currentTimeMillis();
                     Log.e("strDate", "" + strDate);
-                    twoDatesBetweenTime();
+                  //  twoDatesBetweenTime();
                     LockApps();
                     if (db.get_once(1) == 1) {
                         //db.set_once(0);

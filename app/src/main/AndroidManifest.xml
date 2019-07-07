@@ -50,6 +50,13 @@
         <activity android:name=".ChildrenMainActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".AppList" />
+
+        <service
+            android:name="com.nephi.getoffyourphone.Timer_Service"
+            android:process=":Timer_Service"
+            android:enabled="true"
+            android:stopWithTask="false"/>
+
     </application>
 
 </manifest>

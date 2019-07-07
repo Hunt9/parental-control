@@ -55,8 +55,7 @@ final class SwipeItemParser {
                     finishProcessingItem();
                 }
 
-                currentEventType = parser.next();
-            }
+                currentEventType = parser.next(); }
         } catch (XmlPullParserException | IOException e) {
             e.printStackTrace();
             throw new SwipeItemParserException();

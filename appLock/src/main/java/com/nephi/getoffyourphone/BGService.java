@@ -18,7 +18,7 @@ public class BGService extends Service {
 
     @Override
     public void onCreate() {
-       // startService(new Intent(this, Timer_Service.class));
+        startService(new Intent(this, Timer_Service.class));
 
     }
 
