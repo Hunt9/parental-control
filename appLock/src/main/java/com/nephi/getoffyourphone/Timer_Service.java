@@ -425,7 +425,7 @@ public class Timer_Service extends Service {
                     twoDatesBetweenTime();
                     LockApps();
                     if (db.get_once(1) == 1) {
-                        db.set_once(0);
+                        //db.set_once(0);
                         try {
                             lock_State();
                         } catch (Exception e) {
